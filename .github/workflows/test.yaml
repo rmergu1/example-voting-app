@@ -1,0 +1,22 @@
+on:
+  workflow_dispatch:
+    inputs:
+      repo_1:
+        default: "get"
+        description: Use Repo 1?
+      repo_2:
+        default: "update"
+        description: Use Repo 2?
+jobs:
+  repo-1-job:
+    name: Repo 1 Job
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "some repo 1 job"
+  
+  repo-2-job:
+    name: Repo 2 Job
+    runs-on: ubuntu-latest
+    if: github.event.inputs.repo_2 == 'update'
+    steps:
+      - run: echo "${{ github.event.inputs.repo_1 }}"
